@@ -87,6 +87,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Person.cs" />
+    <Compile Include="Statistics.cs" />
+    <Compile Include="EmployeesDataSet.cs">
+      <DependentUpon>EmployeesDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="EmployeesDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
