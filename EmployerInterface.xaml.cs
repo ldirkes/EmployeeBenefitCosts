@@ -23,18 +23,42 @@ namespace EmployeeBenefitCosts
     /// </summary>
     public partial class MainWindow : Window
     {
+        DatabaseManagement database;
         public MainWindow()
         {
             InitializeComponent();
-            DatabaseManagement database = new DatabaseManagement();
-
+            database = new DatabaseManagement();
         }
 
         private void ExecuteButton_Click(object sender, RoutedEventArgs e)
         {
-            if(SearchButton.IsChecked == true)
+            if (SearchButton.IsChecked == true)
             {
-                MessageBox.Show("Search Selected");
+                Person[] people = new Person[1];
+                try
+                {
+                    int employeeID = Int32.Parse(EmployeeIDInput.Text);
+                    if (IsDependent.IsChecked == true)
+                    {
+                        people = database.SearchExact(employeeID, true);
+                    }
+                    else
+                    {
+                        people = database.SearchExact(employeeID, false);
+                    }
+                    MessageBox.Show($"Search returned EmployeeID:{people[0].employeeID}, Name: {people[0].personName}, Dependent: {people[0].isDependent}, Gets a discount: {people[0].hasDiscount}");
+                }
+                catch (FormatException)
+                {
+                    people = database.SearchLikeName(NameInput.Text);
+                    MessageBox.Show($"Search returned EmployeeID:{people[0].employeeID}, Name: {people[0].personName}, Dependent: {people[0].isDependent}, Gets a discount: {people[0].hasDiscount}");
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    MessageBox.Show("There is no one in our system associated with that Employee ID.");
+                }
+                EmployeeIDInput.Clear();
+                NameInput.Clear();
             }
             else if (AddButton.IsChecked == true)
             {
@@ -48,41 +72,12 @@ namespace EmployeeBenefitCosts
             {
                 MessageBox.Show("Edit Selected");
             }
-
-            if(IsDependent.IsChecked == true)
-            {
-                MessageBox.Show("This person is a dependent");
-            }
         }
 
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void SearchButton_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void AddButton_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void RemoveButton_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void EditButton_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-
+            string ccri = CompanyContributionRatioInput.Text;
+            MessageBox.Show(ccri);
         }
     }
 }

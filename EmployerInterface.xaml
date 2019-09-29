@@ -9,29 +9,30 @@
     <Grid x:Name="___No_Name_">
 
 
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="74" Margin="4,267,0,0" VerticalAlignment="Top" Width="265"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="240" Margin="4,15,0,0" VerticalAlignment="Top" Width="265"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="74" Margin="4,288,0,0" VerticalAlignment="Top" Width="286"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="268" Margin="4,15,0,0" VerticalAlignment="Top" Width="286"/>
 
         <TextBlock HorizontalAlignment="Left" Margin="10,21,0,0" TextWrapping="Wrap" Text="Please select a function." VerticalAlignment="Top"/>
-        <RadioButton x:Name="SearchButton" Content="Search" IsChecked="True" HorizontalAlignment="Left" Margin="10,42,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.182,-0.237" Checked="SearchButton_Checked"/>
-        <RadioButton x:Name="AddButton" Content="Add" HorizontalAlignment="Left" Margin="95,42,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.182,-0.237" Checked="AddButton_Checked"/>
-        <RadioButton x:Name="RemoveButton" Content="Remove" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.182,-0.237" Checked="RemoveButton_Checked"/>
-        <RadioButton x:Name="EditButton" Content="Edit" HorizontalAlignment="Left" Margin="95,62,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.182,-0.237" Checked="EditButton_Checked"/>
-        
+        <RadioButton x:Name="SearchButton" Content="Search" IsChecked="True" HorizontalAlignment="Left" Margin="10,42,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.182,-0.237"/>
+        <RadioButton x:Name="AddButton" Content="Add" HorizontalAlignment="Left" Margin="95,42,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.182,-0.237"/>
+        <RadioButton x:Name="RemoveButton" Content="Remove" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.182,-0.237"/>
+        <RadioButton x:Name="EditButton" Content="Edit" HorizontalAlignment="Left" Margin="95,62,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.182,-0.237"/>
+
         <TextBlock HorizontalAlignment="Left" Margin="10,95,0,0" TextWrapping="Wrap" Text="Enter the information of the person." VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Height="23" Margin="16,123,0,0" TextWrapping="Wrap" Text="Employee ID:" VerticalAlignment="Top" Width="74"/>
         <TextBlock HorizontalAlignment="Left" Height="23" Margin="16,159,0,0" TextWrapping="Wrap" Text="Name:" VerticalAlignment="Top" Width="37"/>
         <TextBox x:Name="EmployeeIDInput" HorizontalAlignment="Left" Height="23" Margin="90,123,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="NameInput" HorizontalAlignment="Left" Height="23" Margin="53,159,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="157"/>
 
-        <CheckBox x:Name="IsDependent" Content="Check if this person is a dependent" IsChecked="False"  HorizontalAlignment="Left" Margin="16,195,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked"/>
+        <CheckBox x:Name="IsDependent" Content="Is this person a dependent?" IsChecked="False"  HorizontalAlignment="Left" Margin="16,195,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="SearchAll" Content="Check to make search ignore dependent status" IsChecked="False"  HorizontalAlignment="Left" Margin="16,215,0,0" VerticalAlignment="Top" Height="40" Width="268"/>        
 
-        <Button Content="Execute" HorizontalAlignment="Left" Margin="10,229,0,0" VerticalAlignment="Top" Width="75" Click="ExecuteButton_Click"/>
+        <Button Content="Execute" HorizontalAlignment="Left" Margin="10,249,0,0" VerticalAlignment="Top" Width="75" Click="ExecuteButton_Click"/>
 
-        <TextBlock HorizontalAlignment="Left" Margin="10,272,0,0" TextWrapping="Wrap" Text="Company's Contribution Ratio:" VerticalAlignment="Top" Width="165"/>
-        <TextBox x:Name="CompanyContributionRatioInput" HorizontalAlignment="Left" Height="20" Margin="175,272,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="51"/>
-        <TextBlock HorizontalAlignment="Left" Height="23" Margin="231,272,0,0" TextWrapping="Wrap" Text="%" VerticalAlignment="Top" Width="10" RenderTransformOrigin="4.494,6.962"/>
-        <Button Content="Update" HorizontalAlignment="Left" Margin="10,307,0,0" VerticalAlignment="Top" Width="75" Click="UpdateButton_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,293,0,0" TextWrapping="Wrap" Text="Company's Contribution Ratio:" VerticalAlignment="Top" Width="165"/>
+        <TextBox x:Name="CompanyContributionRatioInput" HorizontalAlignment="Left" Height="20" Margin="175,293,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="51"/>
+        <TextBlock HorizontalAlignment="Left" Height="23" Margin="231,293,0,0" TextWrapping="Wrap" Text="%" VerticalAlignment="Top" Width="10" RenderTransformOrigin="4.494,6.962"/>
+        <Button Content="Update" HorizontalAlignment="Left" Margin="10,328,0,0" VerticalAlignment="Top" Width="75" Click="UpdateButton_Click"/>
 
         <DataGrid HorizontalAlignment="Left" Height="189" Margin="321,21,0,0" VerticalAlignment="Top" Width="454"/>
 
@@ -41,6 +42,7 @@
         <Label x:Name="NumDependents" Content="0" HorizontalAlignment="Left" Margin="536,249,0,0" VerticalAlignment="Top"/>
         <Label x:Name="HasDiscount" Content="No" HorizontalAlignment="Left" Margin="536,271,0,0" VerticalAlignment="Top" Height="28"/>
         <Label x:Name="CostPerPaycheck" Content="0" HorizontalAlignment="Left" Margin="536,292,0,0" VerticalAlignment="Top" Height="28"/>
+        
 
 
     </Grid>

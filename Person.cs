@@ -9,23 +9,23 @@ namespace EmployeeBenefitCosts
     class Person
     {
         // ID number of the employee
-        private int employeeID { get; set; }
+        public int employeeID { get; set; }
         // first name of the person
-        private string name { get; set; }
+        public string personName { get; set; }
         // determines if this person gets a discount
-        private bool discount { get; set; }
+        public bool hasDiscount { get; set; }
         // determines if this person is a dependent (TRUE == dependent, FALSE == employee)
-        private bool isDependent { get; set; }
+        public bool isDependent { get; set; }
         // Constructor for creating a Person object
         public Person()
         {
 
         }
-        public Person(int employeeID, string name, bool discount, bool isDependent) 
+        public Person(int employeeID, string personName, bool hasDiscount, bool isDependent) 
         {
             this.employeeID = employeeID;
-            this.name = name;
-            this.discount = discount;
+            this.personName = personName;
+            this.hasDiscount = hasDiscount;
             this.isDependent = isDependent;
         }
     }
