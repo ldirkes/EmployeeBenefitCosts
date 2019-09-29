@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data.SqlClient;
+using Dapper;
+
 
 namespace EmployeeBenefitCosts
 {
@@ -23,18 +26,63 @@ namespace EmployeeBenefitCosts
         public MainWindow()
         {
             InitializeComponent();
+            DatabaseManagement database = new DatabaseManagement();
+
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ExecuteButton_Click(object sender, RoutedEventArgs e)
         {
-            if(HelloButton.IsChecked == true)
+            if(SearchButton.IsChecked == true)
             {
-                MessageBox.Show("Hello.");
+                MessageBox.Show("Search Selected");
             }
-            else if (GoodbyeButton.IsChecked == true)
+            else if (AddButton.IsChecked == true)
             {
-                MessageBox.Show("Goodbye.");
+                MessageBox.Show("Add Selected");
             }
+            else if (RemoveButton.IsChecked == true)
+            {
+                MessageBox.Show("Remove Selected");
+            }
+            else if (EditButton.IsChecked == true)
+            {
+                MessageBox.Show("Edit Selected");
+            }
+
+            if(IsDependent.IsChecked == true)
+            {
+                MessageBox.Show("This person is a dependent");
+            }
+        }
+
+        private void UpdateButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SearchButton_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddButton_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RemoveButton_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EditButton_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

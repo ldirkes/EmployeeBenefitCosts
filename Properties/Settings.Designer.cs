@@ -26,8 +26,8 @@ namespace EmployeeBenefitCosts.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Employees.mdf" +
-            ";Integrated Security=True;Connect Timeout=30")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\People.mdf;In" +
+            "tegrated Security=True;Connect Timeout=30")]
         public string EmployeesConnectionString {
             get {
                 return ((string)(this["EmployeesConnectionString"]));
