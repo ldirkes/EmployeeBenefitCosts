@@ -57,21 +57,81 @@ namespace EmployeeBenefitCosts
                 {
                     MessageBox.Show("There is no one in our system associated with that Employee ID.");
                 }
-                EmployeeIDInput.Clear();
-                NameInput.Clear();
             }
             else if (AddButton.IsChecked == true)
             {
-                MessageBox.Show("Add Selected");
+                //try
+                //{
+                //    int employeeID = Int32.Parse(EmployeeIDInput.Text);
+                //    string name = NameInput.Text;
+                //    char firstLetter = name[0];
+                //    bool hasDiscount;
+                //    bool isDependent;
+                //    if (firstLetter == 'A' || firstLetter == 'a') { hasDiscount = true; }
+                //    else { hasDiscount = false; }
+                //    if (IsDependent.IsChecked == true) { isDependent = true; }
+                //    else { isDependent = false; }
+                //    Person person = new Person(employeeID, name, hasDiscount, isDependent);
+                //    database.AddPerson(person);
+                //}
+                //catch(Exception)
+                //{
+                //    MessageBox.Show($"There was an exception");
+                //}
+                int employeeID = Int32.Parse(EmployeeIDInput.Text);
+                string name = NameInput.Text;
+                char firstLetter = name[0];
+                bool hasDiscount;
+                bool isDependent;
+                if (firstLetter == 'A' || firstLetter == 'a') { hasDiscount = true; }
+                else { hasDiscount = false; }
+                if (IsDependent.IsChecked == true) { isDependent = true; }
+                else { isDependent = false; }
+                Person person = new Person(employeeID, name, hasDiscount, isDependent);
+                database.AddPerson(person);
             }
             else if (RemoveButton.IsChecked == true)
             {
-                MessageBox.Show("Remove Selected");
+                int employeeID = Int32.Parse(EmployeeIDInput.Text);
+                string name = NameInput.Text;
+                char firstLetter = name[0];
+                bool hasDiscount;
+                bool isDependent;
+                if (firstLetter == 'A' || firstLetter == 'a') { hasDiscount = true; }
+                else { hasDiscount = false; }
+                if (IsDependent.IsChecked == true) { isDependent = true; }
+                else { isDependent = false; }
+                Person person = new Person(employeeID, name, hasDiscount, isDependent);
+                database.RemovePerson(person);
             }
             else if (EditButton.IsChecked == true)
             {
-                MessageBox.Show("Edit Selected");
+                int employeeID = Int32.Parse(EmployeeIDInput.Text);
+                string name = NameInput.Text;
+                bool isDependent;
+                if (IsDependent.IsChecked == true) { isDependent = true; }
+                else { isDependent = false; }
+                Person[] people = database.SearchExact(employeeID, name, isDependent);
+                Person originalPerson = new Person(people[0].employeeID, people[0].personName, people[0].hasDiscount, people[0].isDependent);
+
+                int newEmployeeID = Int32.Parse(EditEmployeeIDInput.Text);
+                string editedName = EditNameInput.Text;
+                char firstLetter = editedName[0];
+                bool editedHasDiscount;
+                bool editedIsDependent;
+                if (firstLetter == 'A' || firstLetter == 'a') { editedHasDiscount = true; }
+                else { editedHasDiscount = false; }
+                if (EditIsDependent.IsChecked == true) { editedIsDependent = true; }
+                else { editedIsDependent = false; }
+                Person editedPerson = new Person(newEmployeeID, editedName, editedHasDiscount, editedIsDependent);
+                database.EditPerson(originalPerson, editedPerson);
             }
+            EmployeeIDInput.Clear();
+            NameInput.Clear();
+            IsDependent.IsChecked = false;
+            EditEmployeeIDInput.Clear();
+            EditNameInput.Clear();
+            EditIsDependent.IsChecked = false;
         }
 
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
@@ -79,5 +139,6 @@ namespace EmployeeBenefitCosts
             string ccri = CompanyContributionRatioInput.Text;
             MessageBox.Show(ccri);
         }
+
     }
 }

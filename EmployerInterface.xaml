@@ -10,7 +10,7 @@
 
 
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="74" Margin="4,288,0,0" VerticalAlignment="Top" Width="286"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="268" Margin="4,15,0,0" VerticalAlignment="Top" Width="286"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="268" Margin="4,15,0,0" VerticalAlignment="Top" Width="447"/>
 
         <TextBlock HorizontalAlignment="Left" Margin="10,21,0,0" TextWrapping="Wrap" Text="Please select a function." VerticalAlignment="Top"/>
         <RadioButton x:Name="SearchButton" Content="Search" IsChecked="True" HorizontalAlignment="Left" Margin="10,42,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.182,-0.237"/>
@@ -25,7 +25,7 @@
         <TextBox x:Name="NameInput" HorizontalAlignment="Left" Height="23" Margin="53,159,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="157"/>
 
         <CheckBox x:Name="IsDependent" Content="Is this person a dependent?" IsChecked="False"  HorizontalAlignment="Left" Margin="16,195,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="SearchAll" Content="Check to make search ignore dependent status" IsChecked="False"  HorizontalAlignment="Left" Margin="16,215,0,0" VerticalAlignment="Top" Height="40" Width="268"/>        
+        <CheckBox x:Name="SearchAll" Content="Check to make search ignore dependent status" IsChecked="False"  HorizontalAlignment="Left" Margin="16,215,0,0" VerticalAlignment="Top" Height="40" Width="268"/>
 
         <Button Content="Execute" HorizontalAlignment="Left" Margin="10,249,0,0" VerticalAlignment="Top" Width="75" Click="ExecuteButton_Click"/>
 
@@ -34,15 +34,22 @@
         <TextBlock HorizontalAlignment="Left" Height="23" Margin="231,293,0,0" TextWrapping="Wrap" Text="%" VerticalAlignment="Top" Width="10" RenderTransformOrigin="4.494,6.962"/>
         <Button Content="Update" HorizontalAlignment="Left" Margin="10,328,0,0" VerticalAlignment="Top" Width="75" Click="UpdateButton_Click"/>
 
-        <DataGrid HorizontalAlignment="Left" Height="189" Margin="321,21,0,0" VerticalAlignment="Top" Width="454"/>
+        <DataGrid HorizontalAlignment="Left" Height="268" Margin="456,15,-0.4,0" VerticalAlignment="Top" Width="338"/>
 
-        <TextBlock HorizontalAlignment="Left" Margin="321,297,0,0" TextWrapping="Wrap" Text="Employee's Benefits Cost per Paycheck:" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="321,254,0,0" TextWrapping="Wrap" Text="Employee's Number of Dependents:" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="321,276,0,0" TextWrapping="Wrap" Text="Employee is Eligible for Discount:" VerticalAlignment="Top"/>
-        <Label x:Name="NumDependents" Content="0" HorizontalAlignment="Left" Margin="536,249,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="HasDiscount" Content="No" HorizontalAlignment="Left" Margin="536,271,0,0" VerticalAlignment="Top" Height="28"/>
-        <Label x:Name="CostPerPaycheck" Content="0" HorizontalAlignment="Left" Margin="536,292,0,0" VerticalAlignment="Top" Height="28"/>
-        
+        <TextBlock HorizontalAlignment="Left" Margin="344,334,0,0" TextWrapping="Wrap" Text="Employee's Benefits Cost per Paycheck:" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="344,292,0,0" TextWrapping="Wrap" Text="Employee's Number of Dependents:" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="344,313,0,0" TextWrapping="Wrap" Text="Employee is Eligible for Discount:" VerticalAlignment="Top"/>
+        <Label x:Name="NumDependents" Content="0" HorizontalAlignment="Left" Margin="559,286,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="HasDiscount" Content="No" HorizontalAlignment="Left" Margin="559,308,0,0" VerticalAlignment="Top" Height="28"/>
+        <Label x:Name="CostPerPaycheck" Content="0" HorizontalAlignment="Left" Margin="559,329,0,0" VerticalAlignment="Top" Height="28"/>
+
+        <TextBlock HorizontalAlignment="Left" Margin="245,81,0,0" TextWrapping="Wrap" Text="If editing, enter the new information of the person below." VerticalAlignment="Top" Height="30" Width="181"/>
+        <TextBlock HorizontalAlignment="Left" Height="23" Margin="245,123,0,0" TextWrapping="Wrap" Text="Employee ID:" VerticalAlignment="Top" Width="74"/>
+        <TextBlock HorizontalAlignment="Left" Height="23" Margin="245,159,0,0" TextWrapping="Wrap" Text="Name:" VerticalAlignment="Top" Width="37"/>
+        <TextBox x:Name="EditEmployeeIDInput" HorizontalAlignment="Left" Height="23" Margin="319,123,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="EditNameInput" HorizontalAlignment="Left" Height="23" Margin="282,159,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="157"/>
+        <CheckBox x:Name="EditIsDependent" Content="Is this person now a dependent?" IsChecked="False"  HorizontalAlignment="Left" Margin="245,195,0,0" VerticalAlignment="Top"/>
+
 
 
     </Grid>
