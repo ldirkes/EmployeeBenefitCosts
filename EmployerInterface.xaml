@@ -34,7 +34,7 @@
         <TextBlock HorizontalAlignment="Left" Height="23" Margin="231,293,0,0" TextWrapping="Wrap" Text="%" VerticalAlignment="Top" Width="10" RenderTransformOrigin="4.494,6.962"/>
         <Button Content="Update" HorizontalAlignment="Left" Margin="10,328,0,0" VerticalAlignment="Top" Width="75" Click="UpdateButton_Click"/>
 
-        <DataGrid HorizontalAlignment="Left" Height="268" Margin="456,15,-0.4,0" VerticalAlignment="Top" Width="338"/>
+        <DataGrid x:Name="DataGrid" HorizontalAlignment="Left" Height="268" Margin="456,15,-0.4,0" VerticalAlignment="Top" Width="338"/>
 
         <TextBlock HorizontalAlignment="Left" Margin="344,334,0,0" TextWrapping="Wrap" Text="Employee's Benefits Cost per Paycheck:" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="344,292,0,0" TextWrapping="Wrap" Text="Employee's Number of Dependents:" VerticalAlignment="Top"/>
@@ -49,6 +49,8 @@
         <TextBox x:Name="EditEmployeeIDInput" HorizontalAlignment="Left" Height="23" Margin="319,123,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="EditNameInput" HorizontalAlignment="Left" Height="23" Margin="282,159,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="157"/>
         <CheckBox x:Name="EditIsDependent" Content="Is this person now a dependent?" IsChecked="False"  HorizontalAlignment="Left" Margin="245,195,0,0" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="344,355,0,0" TextWrapping="Wrap" Text="Employee's Paycheck after Deductions:" VerticalAlignment="Top"/>
+        <Label x:Name="Paycheck" Content="0" HorizontalAlignment="Left" Margin="559,350,0,0" VerticalAlignment="Top" Height="28"/>
 
 
 

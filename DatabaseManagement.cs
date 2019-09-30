@@ -16,11 +16,6 @@ namespace EmployeeBenefitCosts
             string connectionString = "Data Source=LANESROG\\TEW_SQLEXPRESS;Integrated Security=True";
             this.connection = new SqlConnection(connectionString);
             connection.Open();
-            //using (this.connection = new SqlConnection(connectionString))
-            //{
-            //    //var resultsArray = connection.Query<Person>("SELECT * FROM [People].[dbo].PeopleTable").ToArray();
-            //    connection.Open();
-            //}
         }
 
         ///////////////////////////////// SEARCH FUNCTIONS HERE //////////////////////////////////////////

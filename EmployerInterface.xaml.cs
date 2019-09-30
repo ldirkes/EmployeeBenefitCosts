@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data;
 using System.Data.SqlClient;
 using Dapper;
 
@@ -24,17 +25,19 @@ namespace EmployeeBenefitCosts
     public partial class MainWindow : Window
     {
         DatabaseManagement database;
+        Statistics calculator;
         public MainWindow()
         {
             InitializeComponent();
             database = new DatabaseManagement();
+            calculator = new Statistics();
         }
 
         private void ExecuteButton_Click(object sender, RoutedEventArgs e)
         {
             if (SearchButton.IsChecked == true)
             {
-                Person[] people = new Person[1];
+                Person[] people;
                 try
                 {
                     int employeeID = Int32.Parse(EmployeeIDInput.Text);
@@ -46,7 +49,16 @@ namespace EmployeeBenefitCosts
                     {
                         people = database.SearchExact(employeeID, false);
                     }
-                    MessageBox.Show($"Search returned EmployeeID:{people[0].employeeID}, Name: {people[0].personName}, Dependent: {people[0].isDependent}, Gets a discount: {people[0].hasDiscount}");
+                    //MessageBox.Show($"Search returned EmployeeID:{people[0].employeeID}, Name: {people[0].personName}, Dependent: {people[0].isDependent}, Gets a discount: {people[0].hasDiscount}");
+                    DataTable table = createTable(people);
+                    DataGrid.ItemsSource = table.DefaultView;
+                    int numDependents = people.Length - 1;
+                    bool employeeDiscount = people[0].hasDiscount;
+                    double paycheckDeductions = calculator.costPerPaycheck(people[0].hasDiscount, people.Length - 1, 0);
+                    NumDependents.Content = numDependents; //There should always be one employee
+                    HasDiscount.Content = employeeDiscount; //Employee discount status
+                    CostPerPaycheck.Content = paycheckDeductions.ToString("#.00");
+                    Paycheck.Content = calculator.getPaycheck(paycheckDeductions).ToString("#.00");
                 }
                 catch (FormatException)
                 {
@@ -137,7 +149,29 @@ namespace EmployeeBenefitCosts
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
             string ccri = CompanyContributionRatioInput.Text;
-            MessageBox.Show(ccri);
+            int percentage = Int32.Parse(ccri);
+            double rate = percentage * 0.01;
+            calculator.companyContributions = rate;
+        }
+
+        private DataTable createTable(Person[] people)
+        {
+            DataTable table = new DataTable();
+            table.Columns.Add("employeeID");
+            table.Columns.Add("personName");
+            table.Columns.Add("hasDiscount");
+            table.Columns.Add("isDependent");
+            DataRow row;
+            for (int i = 0; i < people.Length; i++)
+            {
+                row = table.NewRow();
+                row["employeeID"] = people[i].employeeID;
+                row["personName"] = people[i].personName;
+                row["hasDiscount"] = people[i].hasDiscount;
+                row["isDependent"] = people[i].isDependent;
+                table.Rows.Add(row);
+            }
+            return table;
         }
 
     }

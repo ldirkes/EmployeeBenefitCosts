@@ -23,7 +23,7 @@ namespace EmployeeBenefitCosts
         private double totalDepenedentCosts { get; set; } // total costs for all dependents
         private double totalCompanyCosts { get; set; } // total costs of benefits for the entire company
         // The percentage of the cost of benefits that the company pays for
-        private double companyContributions { get; set; }
+        public double companyContributions { get; set; }
         // Constructor to be used when starting with a new database
         public Statistics()
         {
@@ -46,6 +46,36 @@ namespace EmployeeBenefitCosts
             this.totalEmployeeCosts = totalEmployeeCosts;
             this.totalDepenedentCosts = totalDepenedentCosts;
             this.totalCompanyCosts = totalCompanyCosts;
+        }
+
+        public double costPerPaycheck(bool employeeDiscount, int numDependents, int numDependentDiscounts)
+        {
+            // Calculate the paycheck deduction cost for the employee's benefits
+            double employeeDeduction = (1 - companyContributions) * employeeBenefitsPerYear / numPaychecksPerYear;
+            // Does this employee get a discount?
+            if (employeeDiscount) { employeeDeduction *= theARate; }
+            // If the employee has dependents, calculate their costs per paycheck
+            double dependentDeduction = 0;
+            for(int i = 0; i < numDependents; i++)
+            {
+                // Apply discount if still available
+                if(numDependentDiscounts > 0)
+                {
+                    dependentDeduction += (1 - companyContributions) * dependentBenefitsPerYear * theARate / numPaychecksPerYear;
+                    numDependentDiscounts--;
+                }
+                // No discounts left, charge full amount
+                else
+                {
+                    dependentDeduction += (1 - companyContributions) * dependentBenefitsPerYear / numPaychecksPerYear;
+                }
+            }
+            return employeeDeduction + dependentDeduction;
+        }
+
+        public double getPaycheck(double deductions)
+        {
+            return paycheck - deductions;
         }
     }
 }
