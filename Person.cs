@@ -17,10 +17,6 @@ namespace EmployeeBenefitCosts
         // determines if this person is a dependent (TRUE == dependent, FALSE == employee)
         public bool isDependent { get; set; }
         // Constructor for creating a Person object
-        public Person()
-        {
-
-        }
         public Person(int employeeID, string personName, bool hasDiscount, bool isDependent) 
         {
             this.employeeID = employeeID;

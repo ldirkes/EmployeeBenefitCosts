@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 using Dapper;
 
 
@@ -35,109 +36,77 @@ namespace EmployeeBenefitCosts
 
         private void ExecuteButton_Click(object sender, RoutedEventArgs e)
         {
+            int employeeID = -1;
+            string name = "";
+            // regex to only allow alphanumerics and white space in the names input
+            string namePattern = @"[^\w\s]*";
+            Regex rgx = new Regex(namePattern);
+            bool isDependent = false;
+            // set employeeID to input if it is an int
+            bool success = Int32.TryParse(EmployeeIDInput.Text, out employeeID);
+            if (!success) { employeeID = -1; }
+            if (NameInput.Text != "" && rgx.IsMatch(NameInput.Text)) { name = NameInput.Text; }
+            if (IsDependent.IsChecked == true) { isDependent = true; }
+
             if (SearchButton.IsChecked == true)
             {
                 Person[] people;
-                try
+                // Case where the employer wants to return the whole database
+                if(employeeID == -1 && name == "")
                 {
-                    int employeeID = Int32.Parse(EmployeeIDInput.Text);
-                    if (IsDependent.IsChecked == true)
-                    {
-                        people = database.SearchExact(employeeID, true);
-                    }
-                    else
-                    {
-                        people = database.SearchExact(employeeID, false);
-                    }
-                    //MessageBox.Show($"Search returned EmployeeID:{people[0].employeeID}, Name: {people[0].personName}, Dependent: {people[0].isDependent}, Gets a discount: {people[0].hasDiscount}");
-                    DataTable table = createTable(people);
-                    DataGrid.ItemsSource = table.DefaultView;
-                    int numDependents = people.Length - 1;
-                    bool employeeDiscount = people[0].hasDiscount;
-                    double paycheckDeductions = calculator.costPerPaycheck(people[0].hasDiscount, people.Length - 1, 0);
-                    NumDependents.Content = numDependents; //There should always be one employee
-                    HasDiscount.Content = employeeDiscount; //Employee discount status
-                    CostPerPaycheck.Content = paycheckDeductions.ToString("#.00");
-                    Paycheck.Content = calculator.getPaycheck(paycheckDeductions).ToString("#.00");
+                    people = database.SearchAll();
+                    updateTable(people);
+                    NumDependents.Content = "";
+                    HasDiscount.Content = "";
+                    CostPerPaycheck.Content = "";
+                    Paycheck.Content = "";
                 }
-                catch (FormatException)
+                // Case where the employer wants to return all people tied to a employee ID
+                else if(employeeID != -1 && name == "")
                 {
-                    people = database.SearchLikeName(NameInput.Text);
-                    MessageBox.Show($"Search returned EmployeeID:{people[0].employeeID}, Name: {people[0].personName}, Dependent: {people[0].isDependent}, Gets a discount: {people[0].hasDiscount}");
+                    people = database.SearchEmployeeID(employeeID);
+                    searchProcess(people);
                 }
-                catch (IndexOutOfRangeException)
+                // Case where the employer wants to find a specific individual
+                else
                 {
-                    MessageBox.Show("There is no one in our system associated with that Employee ID.");
+                    people = database.SearchExact(employeeID, name, isDependent);
+                    searchProcess(people);
                 }
             }
             else if (AddButton.IsChecked == true)
             {
-                //try
-                //{
-                //    int employeeID = Int32.Parse(EmployeeIDInput.Text);
-                //    string name = NameInput.Text;
-                //    char firstLetter = name[0];
-                //    bool hasDiscount;
-                //    bool isDependent;
-                //    if (firstLetter == 'A' || firstLetter == 'a') { hasDiscount = true; }
-                //    else { hasDiscount = false; }
-                //    if (IsDependent.IsChecked == true) { isDependent = true; }
-                //    else { isDependent = false; }
-                //    Person person = new Person(employeeID, name, hasDiscount, isDependent);
-                //    database.AddPerson(person);
-                //}
-                //catch(Exception)
-                //{
-                //    MessageBox.Show($"There was an exception");
-                //}
-                int employeeID = Int32.Parse(EmployeeIDInput.Text);
-                string name = NameInput.Text;
                 char firstLetter = name[0];
                 bool hasDiscount;
-                bool isDependent;
                 if (firstLetter == 'A' || firstLetter == 'a') { hasDiscount = true; }
                 else { hasDiscount = false; }
-                if (IsDependent.IsChecked == true) { isDependent = true; }
-                else { isDependent = false; }
                 Person person = new Person(employeeID, name, hasDiscount, isDependent);
                 database.AddPerson(person);
             }
             else if (RemoveButton.IsChecked == true)
             {
-                int employeeID = Int32.Parse(EmployeeIDInput.Text);
-                string name = NameInput.Text;
-                char firstLetter = name[0];
-                bool hasDiscount;
-                bool isDependent;
-                if (firstLetter == 'A' || firstLetter == 'a') { hasDiscount = true; }
-                else { hasDiscount = false; }
-                if (IsDependent.IsChecked == true) { isDependent = true; }
-                else { isDependent = false; }
-                Person person = new Person(employeeID, name, hasDiscount, isDependent);
-                database.RemovePerson(person);
+                database.RemovePerson(employeeID, name);
             }
             else if (EditButton.IsChecked == true)
             {
-                int employeeID = Int32.Parse(EmployeeIDInput.Text);
-                string name = NameInput.Text;
-                bool isDependent;
-                if (IsDependent.IsChecked == true) { isDependent = true; }
-                else { isDependent = false; }
+                // Person that already exists in the database
                 Person[] people = database.SearchExact(employeeID, name, isDependent);
                 Person originalPerson = new Person(people[0].employeeID, people[0].personName, people[0].hasDiscount, people[0].isDependent);
-
-                int newEmployeeID = Int32.Parse(EditEmployeeIDInput.Text);
-                string editedName = EditNameInput.Text;
-                char firstLetter = editedName[0];
-                bool editedHasDiscount;
-                bool editedIsDependent;
-                if (firstLetter == 'A' || firstLetter == 'a') { editedHasDiscount = true; }
-                else { editedHasDiscount = false; }
-                if (EditIsDependent.IsChecked == true) { editedIsDependent = true; }
-                else { editedIsDependent = false; }
-                Person editedPerson = new Person(newEmployeeID, editedName, editedHasDiscount, editedIsDependent);
+                // Replacement information
+                employeeID = -1;
+                name = "";
+                isDependent = false;
+                success = Int32.TryParse(EmployeeIDInput.Text, out employeeID);
+                if (!success) { employeeID = -1; }
+                if (EditNameInput.Text != "" && rgx.IsMatch(EditNameInput.Text)) { name = EditNameInput.Text; }
+                if (EditIsDependent.IsChecked == true) { isDependent = true; }
+                char firstLetter = name[0];
+                bool hasDiscount = false;
+                if (firstLetter == 'A' || firstLetter == 'a') { hasDiscount = true; }
+                Person editedPerson = new Person(employeeID, name, hasDiscount, isDependent);
                 database.EditPerson(originalPerson, editedPerson);
             }
+            // Clear input fields
             EmployeeIDInput.Clear();
             NameInput.Clear();
             IsDependent.IsChecked = false;
@@ -148,13 +117,21 @@ namespace EmployeeBenefitCosts
 
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
-            string ccri = CompanyContributionRatioInput.Text;
-            int percentage = Int32.Parse(ccri);
-            double rate = percentage * 0.01;
-            calculator.companyContributions = rate;
+            int percentage;
+            bool success = Int32.TryParse(CompanyContributionRatioInput.Text, out percentage);
+            if (success)
+            {
+                double rate = percentage * 0.01;
+                calculator.companyContributions = rate;
+            }
+            else
+            {
+                MessageBox.Show("Invalid company contribution value, please enter an integer.");
+                CompanyContributionRatioInput.Clear();
+            }
         }
 
-        private DataTable createTable(Person[] people)
+        private void updateTable(Person[] people)
         {
             DataTable table = new DataTable();
             table.Columns.Add("employeeID");
@@ -171,8 +148,39 @@ namespace EmployeeBenefitCosts
                 row["isDependent"] = people[i].isDependent;
                 table.Rows.Add(row);
             }
-            return table;
+            DataGrid.ItemsSource = table.DefaultView;
         }
 
+        private void searchProcess(Person[] people)
+        {
+            updateTable(people);
+            Person[] allPeople = database.SearchEmployeeID(people[0].employeeID);
+            int numDependents = allPeople.Length - 1;
+            int numDependentDiscounts;
+            bool employeeDiscount = findEmployeeDiscount(allPeople, out numDependentDiscounts);
+            double paycheckDeductions = calculator.costPerPaycheck(employeeDiscount, allPeople.Length - 1, numDependentDiscounts);
+            NumDependents.Content = numDependents; //There should always be one employee
+            HasDiscount.Content = employeeDiscount; //Employee discount status
+            CostPerPaycheck.Content = paycheckDeductions.ToString("#.00");
+            Paycheck.Content = calculator.getPaycheck(paycheckDeductions).ToString("#.00");
+        }
+
+        private bool findEmployeeDiscount(Person[] people, out int numDependentDiscounts)
+        {
+            bool hasDiscount = false;
+            numDependentDiscounts = 0;
+            for(int i = 0; i < people.Length; i++)
+            {
+                if(people[i].isDependent == false && people[i].hasDiscount == true)
+                {
+                    hasDiscount = true;
+                }
+                else if(people[i].isDependent == true && people[i].hasDiscount == true)
+                {
+                    numDependentDiscounts++;
+                }
+            }
+            return hasDiscount;
+        }
     }
 }

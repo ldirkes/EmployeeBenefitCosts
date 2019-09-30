@@ -25,9 +25,8 @@
         <TextBox x:Name="NameInput" HorizontalAlignment="Left" Height="23" Margin="53,159,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="157"/>
 
         <CheckBox x:Name="IsDependent" Content="Is this person a dependent?" IsChecked="False"  HorizontalAlignment="Left" Margin="16,195,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="SearchAll" Content="Check to make search ignore dependent status" IsChecked="False"  HorizontalAlignment="Left" Margin="16,215,0,0" VerticalAlignment="Top" Height="40" Width="268"/>
 
-        <Button Content="Execute" HorizontalAlignment="Left" Margin="10,249,0,0" VerticalAlignment="Top" Width="75" Click="ExecuteButton_Click"/>
+        <Button Content="Execute" HorizontalAlignment="Left" Margin="10,237,0,0" VerticalAlignment="Top" Width="75" Click="ExecuteButton_Click"/>
 
         <TextBlock HorizontalAlignment="Left" Margin="10,293,0,0" TextWrapping="Wrap" Text="Company's Contribution Ratio:" VerticalAlignment="Top" Width="165"/>
         <TextBox x:Name="CompanyContributionRatioInput" HorizontalAlignment="Left" Height="20" Margin="175,293,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="51"/>
@@ -39,9 +38,11 @@
         <TextBlock HorizontalAlignment="Left" Margin="344,334,0,0" TextWrapping="Wrap" Text="Employee's Benefits Cost per Paycheck:" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="344,292,0,0" TextWrapping="Wrap" Text="Employee's Number of Dependents:" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="344,313,0,0" TextWrapping="Wrap" Text="Employee is Eligible for Discount:" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="344,355,0,0" TextWrapping="Wrap" Text="Employee's Paycheck after Deductions:" VerticalAlignment="Top"/>
         <Label x:Name="NumDependents" Content="0" HorizontalAlignment="Left" Margin="559,286,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="HasDiscount" Content="No" HorizontalAlignment="Left" Margin="559,308,0,0" VerticalAlignment="Top" Height="28"/>
+        <Label x:Name="HasDiscount" Content="False" HorizontalAlignment="Left" Margin="559,308,0,0" VerticalAlignment="Top" Height="28"/>
         <Label x:Name="CostPerPaycheck" Content="0" HorizontalAlignment="Left" Margin="559,329,0,0" VerticalAlignment="Top" Height="28"/>
+        <Label x:Name="Paycheck" Content="0" HorizontalAlignment="Left" Margin="559,350,0,0" VerticalAlignment="Top" Height="28"/>
 
         <TextBlock HorizontalAlignment="Left" Margin="245,81,0,0" TextWrapping="Wrap" Text="If editing, enter the new information of the person below." VerticalAlignment="Top" Height="30" Width="181"/>
         <TextBlock HorizontalAlignment="Left" Height="23" Margin="245,123,0,0" TextWrapping="Wrap" Text="Employee ID:" VerticalAlignment="Top" Width="74"/>
@@ -49,10 +50,6 @@
         <TextBox x:Name="EditEmployeeIDInput" HorizontalAlignment="Left" Height="23" Margin="319,123,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="EditNameInput" HorizontalAlignment="Left" Height="23" Margin="282,159,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="157"/>
         <CheckBox x:Name="EditIsDependent" Content="Is this person now a dependent?" IsChecked="False"  HorizontalAlignment="Left" Margin="245,195,0,0" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="344,355,0,0" TextWrapping="Wrap" Text="Employee's Paycheck after Deductions:" VerticalAlignment="Top"/>
-        <Label x:Name="Paycheck" Content="0" HorizontalAlignment="Left" Margin="559,350,0,0" VerticalAlignment="Top" Height="28"/>
-
-
 
     </Grid>
 </Window>
